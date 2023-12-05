@@ -2,6 +2,7 @@ import pygame
 import settings
 import random
 
+
 class Food:
     def __init__(self, snake_positions):
         self.size = 10
@@ -10,8 +11,8 @@ class Food:
 
     def generate_position(self, snake_positions):
         while True:
-            position = [random.randint(0, (settings.WIDTH // self.size) - 1) * self.size, 
-                        random.randint(0, (settings.HEIGHT // self.size) -1) * self.size]
+            position = [random.randint(0, (settings.WIDTH // self.size) - 1) * self.size,
+                        random.randint(0, (settings.HEIGHT // self.size) - 1) * self.size]
             if position not in snake_positions:
                 return position
 

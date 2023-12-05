@@ -8,9 +8,9 @@ GREEN = (0, 255, 0)
 RED = (255, 0, 0)
 
 # Snake settings
-SNAKE_SPEED = 10
+SNAKE_SIZE = 10
 START_X = 50
 START_Y = 50
 
-# Game settings
-FPS = 2
+# Game settings (max frames per second)
+SPEED = 2

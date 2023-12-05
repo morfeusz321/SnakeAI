@@ -20,8 +20,8 @@ clock = pygame.time.Clock()
 # Game loop
 running = True
 while running:
-    # Cap the maximum speed at 10 frames per second
-    clock.tick(settings.FPS)
+    # Cap the maximum speed
+    clock.tick(settings.SPEED)
 
     # Event handling
     for event in pygame.event.get():
