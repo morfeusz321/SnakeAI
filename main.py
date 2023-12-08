@@ -11,14 +11,22 @@ screen = pygame.display.set_mode((settings.WIDTH, settings.HEIGHT))
 
 # Create a snake object and a food object
 snake = Snake()
-# Create a food object
-food = Food(snake.elements)
 
 # Create a clock object
 clock = pygame.time.Clock()
 
 # Game loop
 running = True
+
+
+def update_ui():
+    screen.fill(settings.WHITE)
+    snake.draw(screen)
+    snake.food.draw(screen)
+    # Update display
+    pygame.display.flip()
+
+
 while running:
     # Cap the maximum speed
     clock.tick(settings.SPEED)
@@ -41,22 +49,17 @@ while running:
     snake.move()
 
     # Check if snake has eaten the food
-    if snake.eats(food):
+    if snake.eats():
         snake.length += 1
-        food = Food(snake.elements)
+        snake.food = Food(snake.elements)
 
     # Check if game over
-    if snake.game_over():
+    if snake.game_over(snake.elements[0]):
         print("Game Over!")
         running = False
 
     # Draw everything
-    screen.fill(settings.WHITE)
-    snake.draw(screen)
-    food.draw(screen)
-
-    # Update display
-    pygame.display.flip()
+    update_ui()
 
 # Quit Pygame
 pygame.quit()
