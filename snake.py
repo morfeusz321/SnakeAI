@@ -11,7 +11,9 @@ class Snake:
     def __init__(self):
         self.size = 10
         self.length = 1
-        self.elements = [[settings.START_X, settings.START_Y]]
+        self.elements = [[settings.START_X, settings.START_Y],
+                         [settings.START_X, settings.START_Y - self.size],
+                         [settings.START_X, settings.START_Y - 2 * self.size]]
         self.before_move = copy.deepcopy(self.elements)
         self.direction = 'up'
         self.score = 0
