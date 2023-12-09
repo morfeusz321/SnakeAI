@@ -1,22 +1,49 @@
+from typing import List
+
 import pygame
 import settings
 import copy
 
+from food import Food
+
 
 class Snake:
     def __init__(self):
-        self.size = 10
+        start_x = settings.WIDTH // 2
+        start_y = settings.HEIGHT // 2
+        self.size = settings.SNAKE_SIZE
         self.length = 1
-        self.elements = [[settings.START_X, settings.START_Y]]
+        self.elements = [[start_x, start_y],
+                         [start_x, start_y - self.size],
+                         [start_x, start_y - 2 * self.size]]
         self.before_move = copy.deepcopy(self.elements)
         self.direction = 'up'
+        self.score = 0
         self.speed = settings.SNAKE_SIZE
+        self.food = Food(self.elements)
+        self.frame_iteration = 0
 
     def draw(self, screen):
         for element in self.elements:
             pygame.draw.rect(screen, settings.GREEN, pygame.Rect(element[0], element[1], self.size, self.size))
 
+    def change_direction(self, direction):
+        self.direction = direction
+        self.move()
+        game_over = False
+        reward = 0
+        if self.game_over(self.elements[0]) or self.frame_iteration > 100 * len(self.elements):
+            game_over = True
+            reward = -10
+            return reward, game_over, self.score
+        if self.eats():
+            self.score += 1
+            reward = 10
+            self.food = Food(self.elements)
+        return reward, game_over, self.score
+
     def move(self):
+        self.frame_iteration += 1
         # Copy current elements before they are updated
         self.before_move = copy.deepcopy(self.elements)
 
@@ -34,19 +61,19 @@ class Snake:
         for i in range(1, len(self.elements)):
             self.elements[i] = copy.deepcopy(self.before_move[i - 1])
 
-    def game_over(self):
+    def game_over(self, point: List[int]):
         # Check if the snake has hit the boundaries
-        if (self.elements[0][0] < 0 or self.elements[0][0] >= settings.WIDTH or
-                self.elements[0][1] < 0 or self.elements[0][1] >= settings.HEIGHT):
+        if (point[0] < 0 or point[0] >= settings.WIDTH or
+                point[1] < 0 or point[1] >= settings.HEIGHT):
             return True
         # Check if the snake has hit itself
-        if self.elements[0] in self.elements[1:]:
+        if point in self.elements[1:]:
             return True
         return False
 
-    def eats(self, food):
+    def eats(self):
         if pygame.Rect(self.elements[0][0], self.elements[0][1], self.size, self.size).colliderect(
-                pygame.Rect(food.position[0], food.position[1], food.size, food.size)):
+                pygame.Rect(self.food.position[0], self.food.position[1], self.food.size, self.food.size)):
             self.elements.append(list(self.before_move[-1]))  # Add a new element to the snake
             return True
         return False
