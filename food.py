@@ -5,7 +5,7 @@ import random
 
 class Food:
     def __init__(self, snake_positions):
-        self.size = 10
+        self.size = settings.FOOD_SIZE
         self.color = settings.RED
         self.position = self.generate_position(snake_positions)
 

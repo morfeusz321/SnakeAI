@@ -11,7 +11,7 @@ class Snake:
     def __init__(self):
         start_x = settings.WIDTH // 2
         start_y = settings.HEIGHT // 2
-        self.size = 10
+        self.size = settings.SNAKE_SIZE
         self.length = 1
         self.elements = [[start_x, start_y],
                          [start_x, start_y - self.size],
