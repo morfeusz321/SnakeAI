@@ -1,6 +1,6 @@
 # Screen dimensions
-WIDTH = 100
-HEIGHT = 100
+WIDTH = 60
+HEIGHT = 60
 
 # Colors
 WHITE = (255, 255, 255)
@@ -9,8 +9,8 @@ RED = (255, 0, 0)
 
 # Snake settings
 SNAKE_SIZE = 10
-START_X = 50
-START_Y = 50
+START_X = 30
+START_Y = 30
 
 # Game settings (max frames per second)
 SPEED = 2
