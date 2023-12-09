@@ -1,6 +1,6 @@
 # Screen dimensions
-WIDTH = 480
-HEIGHT = 400
+WIDTH = 720
+HEIGHT = 560
 
 # Colors
 WHITE = (255, 255, 255)

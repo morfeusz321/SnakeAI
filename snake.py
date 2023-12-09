@@ -6,6 +6,8 @@ import copy
 
 from food import Food
 
+pygame.font.init()
+
 
 class Snake:
     def __init__(self):
@@ -22,10 +24,14 @@ class Snake:
         self.speed = settings.SNAKE_SIZE
         self.food = Food(self.elements)
         self.frame_iteration = 0
+        self.font = pygame.font.SysFont('arial', 20)
 
     def draw(self, screen):
         for element in self.elements:
             pygame.draw.rect(screen, settings.GREEN, pygame.Rect(element[0], element[1], self.size, self.size))
+
+        score_text = self.font.render(f"Score: {self.score}", True, (0, 0, 0))
+        screen.blit(score_text, (settings.WIDTH - score_text.get_width(), 10))
 
     def change_direction(self, direction):
         self.direction = direction
