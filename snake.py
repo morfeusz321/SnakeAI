@@ -9,16 +9,19 @@ from food import Food
 
 class Snake:
     def __init__(self):
+        start_x = settings.WIDTH // 2
+        start_y = settings.HEIGHT // 2
         self.size = 10
         self.length = 1
-        self.elements = [[settings.START_X, settings.START_Y],
-                         [settings.START_X, settings.START_Y - self.size],
-                         [settings.START_X, settings.START_Y - 2 * self.size]]
+        self.elements = [[start_x, start_y],
+                         [start_x, start_y - self.size],
+                         [start_x, start_y - 2 * self.size]]
         self.before_move = copy.deepcopy(self.elements)
         self.direction = 'up'
         self.score = 0
         self.speed = settings.SNAKE_SIZE
         self.food = Food(self.elements)
+        self.frame_iteration = 0
 
     def draw(self, screen):
         for element in self.elements:
@@ -29,7 +32,7 @@ class Snake:
         self.move()
         game_over = False
         reward = 0
-        if self.game_over(self.elements[0]):
+        if self.game_over(self.elements[0]) or self.frame_iteration > 100 * len(self.elements):
             game_over = True
             reward = -10
             return reward, game_over, self.score
@@ -40,6 +43,7 @@ class Snake:
         return reward, game_over, self.score
 
     def move(self):
+        self.frame_iteration += 1
         # Copy current elements before they are updated
         self.before_move = copy.deepcopy(self.elements)
 
