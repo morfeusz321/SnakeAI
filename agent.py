@@ -16,7 +16,7 @@ LR = 0.01
 
 def get_state(snake: Snake):
     head = snake.elements[0]
-    one_element_length = settings.SPEED
+    one_element_length = settings.SNAKE_SIZE
     point_l = [head[0] - one_element_length, head[1]]
     point_r = [head[0] + one_element_length, head[1]]
     point_u = [head[0], head[1] - one_element_length]
@@ -89,6 +89,7 @@ class Agent:
     def get_action(self, state):
         self.epsilon = 80 - self.n_games
         final_move = [0, 0, 0]
+        # start with random moves and as epsilon decreases, start using the model
         if random.randint(0, 200) < self.epsilon:
             move = random.randint(0, 2)
             final_move[move] = 1
@@ -108,13 +109,13 @@ def train():
     record = 0
     agent = Agent()
     game = Snake()
-    clock = pygame.time.Clock()
+    # clock = pygame.time.Clock()
 
     # Create game window
     screen = pygame.display.set_mode((settings.WIDTH, settings.HEIGHT))
     while True:
         # get old state
-        clock.tick(settings.SPEED)
+        # clock.tick(settings.SPEED)
         state_old = get_state(game)
 
         # get move
