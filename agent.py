@@ -11,7 +11,7 @@ from snake import Snake
 
 MAX_MEMORY = 100_000
 BATCH_SIZE = 1000
-LR = 0.01
+LR = 0.001
 
 
 def get_state(snake: Snake):
@@ -109,18 +109,29 @@ def train():
     record = 0
     agent = Agent()
     game = Snake()
-    # clock = pygame.time.Clock()
+    clock = pygame.time.Clock()
 
     # Create game window
     screen = pygame.display.set_mode((settings.WIDTH, settings.HEIGHT))
     while True:
+        clock.tick(settings.SPEED)
         # get old state
-        # clock.tick(settings.SPEED)
         state_old = get_state(game)
 
         # get move
         final_move = agent.get_action(state_old)
-        move = 'left' if final_move[0] else 'up' if final_move[1] else 'right' if final_move[2] else 'down'
+
+        # set move direction based on final_move and current direction
+        if game.direction == 'up':
+            move = 'left' if final_move[0] else 'up' if final_move[1] else 'right'
+        elif game.direction == 'down':
+            move = 'right' if final_move[0] else 'down' if final_move[1] else 'left'
+        elif game.direction == 'left':
+            move = 'down' if final_move[0] else 'left' if final_move[1] else 'up'
+        elif game.direction == 'right':
+            move = 'up' if final_move[0] else 'right' if final_move[1] else 'down'
+
+        # move = 'left' if final_move[0] else 'up' if final_move[1] else 'right' if final_move[2] else 'down'
         # perform move and get new state
         reward, done, score = game.change_direction(move)
         state_new = get_state(game)
