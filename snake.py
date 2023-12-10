@@ -38,7 +38,11 @@ class Snake:
         self.move()
         game_over = False
         reward = 0
-        if self.game_over(self.elements[0]) or self.frame_iteration > 100 * len(self.elements):
+        if self.frame_iteration > 100 * len(self.elements):
+            game_over = True
+            reward = -20
+            return reward, game_over, self.score
+        elif self.game_over(self.elements[0]):
             game_over = True
             reward = -10
             return reward, game_over, self.score

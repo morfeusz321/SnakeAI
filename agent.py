@@ -1,3 +1,4 @@
+import sys
 import pygame
 import torch
 import random
@@ -102,7 +103,7 @@ class Agent:
         return final_move
 
 
-def train():
+def train(num_games, display_plot):
     plot_scores = []
     plot_mean_scores = []
     total_score = 0
@@ -113,7 +114,8 @@ def train():
 
     # Create game window
     screen = pygame.display.set_mode((settings.WIDTH, settings.HEIGHT))
-    while True:
+    games_played = 0
+    while games_played < num_games or num_games == 0:
         clock.tick(settings.SPEED)
         # get old state
         state_old = get_state(game)
@@ -156,14 +158,28 @@ def train():
                 record = score
                 agent.model.save()
 
-            print('Game', agent.n_games, 'Score', score, 'Record:', record)
-
-            plot_scores.append(score)
             total_score += score
             mean_score = total_score / agent.n_games
+
+            print('Game', agent.n_games, 'Score', score, 'Record:', record, 'Avg.:', mean_score)
+
+            plot_scores.append(score)
             plot_mean_scores.append(mean_score)
-            plot(plot_scores, plot_mean_scores)
+            if display_plot:
+                plot(plot_scores, plot_mean_scores, wait=False)
+            
+            games_played += 1
+        
+    plot(plot_scores, plot_mean_scores, wait=True)
 
 
 if __name__ == '__main__':
-    train()
+    # Parse args
+    num_games = 0
+    display_plot = True
+
+    if len(sys.argv) > 1:
+        num_games = int(sys.argv[1])
+        display_plot = sys.argv[2] in 'true'
+
+    train(num_games, display_plot)
