@@ -12,4 +12,4 @@ SNAKE_SIZE = 40
 FOOD_SIZE = 40
 
 # Game settings (max frames per second)
-SPEED = 70
+SPEED = 40

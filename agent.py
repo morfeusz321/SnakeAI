@@ -1,6 +1,7 @@
 import pygame
 import torch
 import random
+import math
 import numpy as np
 from collections import deque
 
@@ -115,6 +116,18 @@ def train():
     screen = pygame.display.set_mode((settings.WIDTH, settings.HEIGHT))
     while True:
         clock.tick(settings.SPEED)
+
+        # increase or decrease speed by pressing + or - and reset to 40 by pressing r
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_PLUS:
+                    settings.SPEED *= 2
+                elif event.key == pygame.K_MINUS:
+                    if settings.SPEED > 10:
+                        settings.SPEED = math.floor(settings.SPEED // 2)
+                elif event.key == pygame.K_r:
+                    settings.SPEED = 40
+
         # get old state
         state_old = get_state(game)
 

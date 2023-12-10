@@ -31,7 +31,9 @@ class Snake:
             pygame.draw.rect(screen, settings.GREEN, pygame.Rect(element[0], element[1], self.size, self.size))
 
         score_text = self.font.render(f"Score: {self.score}", True, (0, 0, 0))
+        speed_text = self.font.render(f"Speed: {settings.SPEED}", True, (0, 0, 0))
         screen.blit(score_text, (settings.WIDTH - score_text.get_width(), 10))
+        screen.blit(speed_text, (settings.WIDTH - speed_text.get_width(), 30))
 
     def change_direction(self, direction):
         self.direction = direction
