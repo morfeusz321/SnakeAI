@@ -5,7 +5,7 @@
 This project is an implementation of the classic snake game in Python, with an added twist of an AI agent that learns to play the game. The project uses Pygame for graphical representation, TensorFlow for the AI model, and other Python libraries for various functionalities.
 
 ## Files
-- **agent.py**: Contains the logic for the AI agent, including memory and training routines.
+- **agent.py**: Contains the logic for the AI agent, including memory.
 - **food.py**: Defines the Food class, which handles the generation and rendering of food in the game.
 - **snake.py**: Contains the Snake class, managing the snake's movement, growth, and rendering.
 - **model.py**: Defines the neural network model used by the AI agent.
@@ -35,7 +35,7 @@ This project is an implementation of the classic snake game in Python, with an a
 ## AI Agent
 - The AI agent uses a neural network to learn the game.
 - Training progress can be visualized using the plot function in `helper.py`.
-- To train the agent, run `agent.py`.
+- To train the agent, run `training.py`.
 
 ## Customization
 - Settings can be adjusted in `settings.py` (not included in the file list, but assumed to exist).
