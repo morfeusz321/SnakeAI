@@ -1,7 +1,7 @@
 import pygame
 import settings
-from snake import Snake
-from food import Food
+from game.snake import Snake
+from game.food import Food
 
 # Initialize Pygame
 pygame.init()

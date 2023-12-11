@@ -17,7 +17,7 @@ class LinearQNet(nn.Module):
         return x
 
     def save(self, file_name='model.pth'):
-        model_folder_path = './model'
+        model_folder_path = '../model'
         if not os.path.exists(model_folder_path):
             os.makedirs(model_folder_path)
 
@@ -38,7 +38,6 @@ class QTrainer:
         next_state = torch.tensor(next_state, dtype=torch.float)
         action = torch.tensor(action, dtype=torch.long)
         reward = torch.tensor(reward, dtype=torch.float)
-        # (n, x)
 
         if len(state.shape) == 1:
             # (1, x)
@@ -59,9 +58,6 @@ class QTrainer:
 
             target[idx][torch.argmax(action[idx]).item()] = Q_new
 
-        # 2: Q_new = r + y * max(next_predicted Q value) -> only do this if not done
-        # pred.clone()
-        # preds[argmax(action)] = Q_new
         self.optimizer.zero_grad()
         loss = self.criterion(target, pred)
         loss.backward()
