@@ -26,6 +26,10 @@ This project is an implementation of the classic snake game in Python, with an a
     ```bash
     python main.py
     ```
+5. To train the AI agent, run:
+    ```bash
+    python agent.py
+    ```
 
 ## Gameplay
 - Use arrow keys to control the snake.
