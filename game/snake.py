@@ -4,7 +4,7 @@ import pygame
 import settings
 import copy
 
-from food import Food
+from game.food import Food
 
 pygame.font.init()
 
